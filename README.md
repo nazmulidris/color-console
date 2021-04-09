@@ -13,7 +13,8 @@ Table of contents
 
 ## Colorful console logging
 
-This is a small library that provides a simple Kotlin DSL in order to colorize console log output w/ ANSI characters.
+This is a small library that provides a simple Kotlin DSL in order to colorize console log output w/
+ANSI characters.
 
 Here's an example of how to use this:
 
@@ -59,10 +60,11 @@ fun main() {
 ## How to import this in gradle
 
 In order to load the package for the library from GitHub Packages Registry, the
-[official docs](https://docs.github.com/en/packages/guides/configuring-gradle-for-use-with-github-packages) provide some
-detailed examples of the provider side of things. And you can extrapolate what the consumer side of things might look
-like. The biggest thing to keep in mind is that a `read:packages` scoped GitHub personal access token will be required
-by the consumer of the package (and has to be accessible their `build.gradle` or `build.gradle.kts` file).
+[official docs](https://docs.github.com/en/packages/guides/configuring-gradle-for-use-with-github-packages)
+provide some detailed examples of the provider side of things. And you can extrapolate what the
+consumer side of things might look like. The biggest thing to keep in mind is that a `read:packages`
+scoped GitHub personal access token will be required by the consumer of the package (and has to be
+accessible their `build.gradle` or `build.gradle.kts` file).
 
 Make sure to provide the following environment variables before you import this package.
 
@@ -73,8 +75,8 @@ Here is more information on
 [how to declare your own maven repositories](https://docs.gradle.org/current/userguide/declaring_repositories.html)
 using gradle.
 
-To import this library into your Gradle project, please add the following lines in your `build.gradle` file in order to
-use this library (in Groovy).
+To import this library into your Gradle project, please add the following lines in your
+`build.gradle` file in order to use this library (in Groovy).
 
 ```groovy
 repositories {
@@ -118,13 +120,15 @@ dependencies {
 > 💡 To learn how to publish a library to GitHub Package Repository as a gradle dependency,
 > [please read this tutorial](https://developerlife.com/2021/02/06/publish-kotlin-library-as-gradle-dep/).
 
-In order to test whether this is deployed locally, you can use the following command `./gradlew publishToMavenLocal`.
-This should dump the dependency on your local machine in the following folder
-`$HOME/.m2/repository/com/developerlife/color-console/`. Just look for a folder with the version number in there, which
-will contain all the generated artifacts.
+In order to test whether this is deployed locally, you can use the following command
+`./gradlew publishToMavenLocal`. This should dump the dependency on your local machine in the
+following folder `$HOME/.m2/repository/com/developerlife/color-console/`. Just look for a folder
+with the version number in there, which will contain all the generated artifacts.
 
-Once you have verified that everything is working locally, it is time to publish it to the GitHub Package Registry. Use
-`./gradlew publish` to do this. In order to do this the following environment variables need to be set:
+Once you have verified that everything is working locally, it is time to publish it to the GitHub
+Package Registry. Use `./gradlew publish` to do this. In order to do this the following environment
+variables need to be set:
 
-1. `GITHUB_PACKAGES_PUBLISH_TOKEN` - this token has `repo, write:packages` scope. Do **NOT** share this!
+1. `GITHUB_PACKAGES_PUBLISH_TOKEN` - this token has `repo, write:packages` scope. Do **NOT** share
+   this!
 2. `GITHUB_PACKAGES_USERID` - this is the GitHub username for the token. This is ok to share.
