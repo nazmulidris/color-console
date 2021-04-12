@@ -6,8 +6,10 @@ Table of contents
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Colorful console logging](#colorful-console-logging)
-- [How to import this in gradle](#how-to-import-this-in-gradle)
-- [How to publish this to GitHub Package Registry](#how-to-publish-this-to-github-package-registry)
+- [How to import this dependency into gradle (using JitPack)](#how-to-import-this-dependency-into-gradle-using-jitpack)
+- [GitHub Packages Registry (deprecated 2021-04-12)](#github-packages-registry-deprecated-2021-04-12)
+  - [How to import this in gradle](#how-to-import-this-in-gradle)
+  - [How to publish this to GitHub Package Registry](#how-to-publish-this-to-github-package-registry)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -57,7 +59,54 @@ fun main() {
 }
 ```
 
-## How to import this in gradle
+## How to import this dependency into gradle (using JitPack)
+
+You can import this dependency into your gradle projects by making the following changes to your
+`build.gradle` or `build.gradle.kts` file.
+
+1. Add this at the end of your `repositories` section.
+
+   For `build.gradle`:
+
+   ```groovy
+     repositories {maven { url 'https://jitpack.io' }}
+   }
+   ```
+
+   For `build.gradle.kts`:
+
+   ```kotlin
+   repositories {
+     maven{
+       url = uri("https://jitpack.io")
+     }
+   }
+   ```
+
+2. Add the dependency.
+
+   For `build.gradle`:
+
+   ```groovy
+   dependencies { implementation 'com.github.nazmulidris:color-console:1.0.0' }
+   ```
+
+   For `build.gradle.kts`:
+
+   ```kotlin
+   dependencies { implementation ("com.github.nazmulidris:color-console:1.0.0") }
+   ```
+
+Information about this dependency on JitPack:
+
+- You can find this dependency on JitPack
+  [here](https://jitpack.io/#nazmulidris/color-console/1.0.0)
+- You can find the JitPack build logs
+  [here](https://jitpack.io/com/github/nazmulidris/color-console/1.0.0/build.log)
+
+## GitHub Packages Registry (deprecated 2021-04-12)
+
+### How to import this in gradle
 
 In order to load the package for the library from GitHub Packages Registry, the
 [official docs](https://docs.github.com/en/packages/guides/configuring-gradle-for-use-with-github-packages)
@@ -115,7 +164,7 @@ dependencies {
 }
 ```
 
-## How to publish this to GitHub Package Registry
+### How to publish this to GitHub Package Registry
 
 > 💡 To learn how to publish a library to GitHub Package Repository as a gradle dependency,
 > [please read this tutorial](https://developerlife.com/2021/02/06/publish-kotlin-library-as-gradle-dep/).
