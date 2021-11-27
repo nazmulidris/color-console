@@ -69,6 +69,7 @@ You can import this dependency into your gradle projects by making the following
    For `build.gradle`:
 
    ```groovy
+   repositories {
      repositories {maven { url 'https://jitpack.io' }}
    }
    ```
