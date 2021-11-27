@@ -17,7 +17,9 @@
 // More info: https://medium.com/@stpatrck/publish-an-android-library-to-github-packages-8dfff3ececcb
 
 plugins {
-  kotlin("jvm") version "1.4.10"
+  java
+  kotlin("jvm") version "1.6.0"
+  id("maven-publish")
 }
 
 repositories {
@@ -38,3 +40,10 @@ tasks {
   }
 }
 
+val sourcesJar by tasks.creating(Jar::class) {
+  archiveClassifier.set("sources")
+  from(sourceSets.getByName("main").allSource)
+  from("LICENCE.md") {
+    into("META-INF")
+  }
+}
