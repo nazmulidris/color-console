@@ -7,6 +7,7 @@ Table of contents
 
 - [Colorful console logging](#colorful-console-logging)
 - [How to import this dependency into gradle (using JitPack)](#how-to-import-this-dependency-into-gradle-using-jitpack)
+- [Publishing this dependency into JitPack](#publishing-this-dependency-into-jitpack)
 - [GitHub Packages Registry (deprecated 2021-04-12)](#github-packages-registry-deprecated-2021-04-12)
   - [How to import this in gradle](#how-to-import-this-in-gradle)
   - [How to publish this to GitHub Package Registry](#how-to-publish-this-to-github-package-registry)
@@ -34,17 +35,17 @@ fun main() {
       span(Purple, "word2")
     }
     println(
-        line {//this: MutableList<String>
-          add(Green("word1"))
-          add(Blue("word2"))
-        })
+      line {//this: MutableList<String>
+        add(Green("word1"))
+        add(Blue("word2"))
+      })
   }
 
 
   // Example 2.
   val map = mapOf(
-      "Key1" to "Value1",
-      "Key2" to "Value2",
+    "Key1" to "Value1",
+    "Key2" to "Value2",
   )
   colorConsole {
     printLine(spanSeparator = "\n") {
@@ -105,6 +106,78 @@ Information about this dependency on JitPack:
 - You can find the JitPack build logs
   [here](https://jitpack.io/com/github/nazmulidris/color-console/1.0.0/build.log)
 
+## Publishing this dependency into JitPack
+
+Ensure that the `maven-publish` plugin is imported in `build.gradle.kts`.
+
+```kotlin
+plugins {
+  java
+  kotlin("jvm") version "1.6.0"
+  `maven-publish`
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation(kotlin("stdlib-jdk8"))
+  testImplementation("junit", "junit", "4.12")
+}
+
+tasks {
+  compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+  }
+  compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+  }
+}
+
+publishing {
+  publications {
+    create<MavenPublication>("maven") {
+      groupId = "com.developerlife"
+      artifactId = "color-console"
+      version = "1.0.1"
+
+      from(components["java"])
+    }
+  }
+}
+```
+
+Before you can publish this library, make sure that you can run the following commands. This will
+ensure that JitPack can build this repo using gradle.
+
+```shell
+./gradlew clean
+./gradlew build
+./gradlew build publishToMavenLocal
+```
+
+In order to publish this repo to JitPack you have to do the following things.
+
+1. Make the changes that you want the repo, and commit and push it. Also, make sure that the library
+   can be built by JitPack using the command shown above.
+2. Get all the tags for this repo from GitHub using `git pull origin`. Then you can list the
+   available tags using `git tag -l`.
+3. Create a new tag. To create a new tag run this command `git tag <TAG_NAME>`, where `<TAG_NAME>`
+   could be something like `1.0.1`. Just make sure not to clobber any existing tag name.
+4. Publish the tag to GitHub using the following command `git push --tags`.
+5. Finally create a new Release for this tag using
+   [GitHub web interface](https://github.com/nazmulidris/color-console/releases).
+
+> ⚡ Note, to delete a tag from GitHub you can run this command
+> `git push --delete origin <TAG_NAME> ; git pull origin`. You can delete a tag from your local repo
+> using `git tag -d <TAG_NAME>; git push origin --tags`. You can't manage releases though, which
+> require the use of the GitHub web UI. Here's
+> [more info](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on git tagging.
+
+> ✨ This [tutorial](https://sami.eljabali.org/how-to-publish-a-kotlin-library-to-jitpack/) has more
+> information on how to publish a Kotlin library to JitPack.
+
 ## GitHub Packages Registry (deprecated 2021-04-12)
 
 ### How to import this in gradle
@@ -136,13 +209,14 @@ repositories {
     credentials {
       username = System.getenv("GITHUB_PACKAGES_USERID") ?: "nazmulidris"
       // Safe to share the password since it is a `read:package` scoped token.
-      password = System.getenv("GITHUB_PACKAGES_IMPORT_TOKEN") ?: "22e9ba0d47c3e9116a2f1023867a1985beebfb60"
+      password = System.getenv("GITHUB_PACKAGES_IMPORT_TOKEN") ?:
+        "22e9ba0d47c3e9116a2f1023867a1985beebfb60"
     }
   }
 }
 
 dependencies {
-    implementation 'com.developerlife:color-console:1.0'
+  implementation 'com.developerlife:color-console:1.0'
 }
 ```
 
@@ -155,7 +229,8 @@ repositories {
     url = uri("https://maven.pkg.github.com/nazmulidris/color-console")
     credentials {
       username = System.getenv("GITHUB_PACKAGES_USERID") ?: "nazmulidris"
-      password = System.getenv("GITHUB_PACKAGES_IMPORT_TOKEN") ?: "22e9ba0d47c3e9116a2f1023867a1985beebfb60"
+      password =
+        System.getenv("GITHUB_PACKAGES_IMPORT_TOKEN") ?: "22e9ba0d47c3e9116a2f1023867a1985beebfb60"
     }
   }
 }

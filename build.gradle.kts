@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-// More info: https://medium.com/@stpatrck/publish-an-android-library-to-github-packages-8dfff3ececcb
+// https://sami.eljabali.org/how-to-publish-a-kotlin-library-to-jitpack/
 
 plugins {
   java
   kotlin("jvm") version "1.6.0"
-  id("maven-publish")
+  `maven-publish`
 }
 
 repositories {
@@ -40,10 +40,14 @@ tasks {
   }
 }
 
-val sourcesJar by tasks.creating(Jar::class) {
-  archiveClassifier.set("sources")
-  from(sourceSets.getByName("main").allSource)
-  from("LICENCE.md") {
-    into("META-INF")
+publishing {
+  publications {
+    create<MavenPublication>("maven") {
+      groupId = "com.developerlife"
+      artifactId = "color-console"
+      version = "1.0.1"
+
+      from(components["java"])
+    }
   }
 }
