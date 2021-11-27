@@ -157,6 +157,11 @@ ensure that JitPack can build this repo using gradle.
 ./gradlew build publishToMavenLocal
 ```
 
+> ⚠ Note that w/out the `publishing` section of `build.gradle.kts` you will get an error from
+> JitPack even though the `./gradlew build publishToMavenLocal` will work. This error will say
+> `ERROR: No build artifacts found`.
+> [More info](https://sami.eljabali.org/how-to-publish-a-kotlin-library-to-jitpack/#:~:text=without%20the%20above%2C%20jitpack%20will%20down%20the%20line%20show%20in%20your%20build%20log%20error%3A%20no%20build%20artifacts%20found%2C%20while%20building%20fine).
+
 In order to publish this repo to JitPack you have to do the following things.
 
 1. Make the changes that you want the repo, and commit and push it. Also, make sure that the library
@@ -174,9 +179,6 @@ In order to publish this repo to JitPack you have to do the following things.
 > using `git tag -d <TAG_NAME>; git push origin --tags`. You can't manage releases though, which
 > require the use of the GitHub web UI. Here's
 > [more info](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on git tagging.
-
-> ✨ This [tutorial](https://sami.eljabali.org/how-to-publish-a-kotlin-library-to-jitpack/) has more
-> information on how to publish a Kotlin library to JitPack.
 
 ## GitHub Packages Registry (deprecated 2021-04-12)
 
