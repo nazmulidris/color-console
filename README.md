@@ -148,8 +148,8 @@ publishing {
 }
 ```
 
-Before you can publish this library, make sure that you can run the following commands. This will
-ensure that JitPack can build this repo using gradle.
+Before you can publish this library, make sure that you can run the following commands, that ensure
+that JitPack can build this repo using gradle.
 
 ```shell
 ./gradlew clean
@@ -166,12 +166,14 @@ In order to publish this repo to JitPack you have to do the following things.
 
 1. Make the changes that you want the repo, and commit and push it. Also, make sure that the library
    can be built by JitPack using the command shown above.
-2. Get all the tags for this repo from GitHub using `git pull origin`. Then you can list the
+2. Update the `version` value in `build.gradle.kts`, this affects the JAR file that is built by
+   JitPack. For consistency, the value here should match the release and tag value as well.
+3. Get all the tags for this repo from GitHub using `git pull origin`. Then you can list the
    available tags using `git tag -l`.
-3. Create a new tag. To create a new tag run this command `git tag <TAG_NAME>`, where `<TAG_NAME>`
+4. Create a new tag. To create a new tag run this command `git tag <TAG_NAME>`, where `<TAG_NAME>`
    could be something like `1.0.1`. Just make sure not to clobber any existing tag name.
-4. Publish the tag to GitHub using the following command `git push --tags`.
-5. Finally create a new Release for this tag using
+5. Publish the tag to GitHub using the following command `git push --tags`.
+6. Finally create a new Release for this tag using
    [GitHub web interface](https://github.com/nazmulidris/color-console/releases).
 
 > ⚡ Note, to delete a tag from GitHub you can run this command
