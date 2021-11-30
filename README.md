@@ -7,7 +7,7 @@ Table of contents
 
 - [Colorful console logging](#colorful-console-logging)
 - [How to import this dependency into gradle (using JitPack)](#how-to-import-this-dependency-into-gradle-using-jitpack)
-- [Publishing this dependency into JitPack](#publishing-this-dependency-into-jitpack)
+- [Publishing this to JitPack](#publishing-this-to-jitpack)
 - [GitHub Packages Registry (deprecated 2021-04-12)](#github-packages-registry-deprecated-2021-04-12)
   - [How to import this in gradle](#how-to-import-this-in-gradle)
   - [How to publish this to GitHub Package Registry](#how-to-publish-this-to-github-package-registry)
@@ -106,81 +106,11 @@ Information about this dependency on JitPack:
 - You can find the JitPack build logs
   [here](https://jitpack.io/com/github/nazmulidris/color-console/1.0.0/build.log)
 
-## Publishing this dependency into JitPack
+## Publishing this to JitPack
 
-Ensure that the `maven-publish` plugin is imported in `build.gradle.kts`.
-
-```kotlin
-plugins {
-  java
-  kotlin("jvm") version "1.6.0"
-  `maven-publish`
-}
-
-repositories {
-  mavenCentral()
-}
-
-dependencies {
-  implementation(kotlin("stdlib-jdk8"))
-  testImplementation("junit", "junit", "4.12")
-}
-
-tasks {
-  compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-  }
-  compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-  }
-}
-
-publishing {
-  publications {
-    create<MavenPublication>("maven") {
-      groupId = "com.developerlife"
-      artifactId = "color-console"
-      version = "1.0.1"
-
-      from(components["java"])
-    }
-  }
-}
-```
-
-Before you can publish this library, make sure that you can run the following commands, that ensure
-that JitPack can build this repo using gradle.
-
-```shell
-./gradlew clean
-./gradlew build
-./gradlew build publishToMavenLocal
-```
-
-> ⚠ Note that w/out the `publishing` section of `build.gradle.kts` you will get an error from
-> JitPack even though the `./gradlew build publishToMavenLocal` will work. This error will say
-> `ERROR: No build artifacts found`.
-> [More info](https://sami.eljabali.org/how-to-publish-a-kotlin-library-to-jitpack/#:~:text=without%20the%20above%2C%20jitpack%20will%20down%20the%20line%20show%20in%20your%20build%20log%20error%3A%20no%20build%20artifacts%20found%2C%20while%20building%20fine).
-
-In order to publish this repo to JitPack you have to do the following things.
-
-1. Make the changes that you want the repo, and commit and push it. Also, make sure that the library
-   can be built by JitPack using the command shown above.
-2. Update the `version` value in `build.gradle.kts`, this affects the JAR file that is built by
-   JitPack. For consistency, the value here should match the release and tag value as well.
-3. Get all the tags for this repo from GitHub using `git pull origin`. Then you can list the
-   available tags using `git tag -l`.
-4. Create a new tag. To create a new tag run this command `git tag <TAG_NAME>`, where `<TAG_NAME>`
-   could be something like `1.0.1`. Just make sure not to clobber any existing tag name.
-5. Publish the tag to GitHub using the following command `git push --tags`.
-6. Finally create a new Release for this tag using
-   [GitHub web interface](https://github.com/nazmulidris/color-console/releases).
-
-> ⚡ Note, to delete a tag from GitHub you can run this command
-> `git push --delete origin <TAG_NAME> ; git pull origin`. You can delete a tag from your local repo
-> using `git tag -d <TAG_NAME>; git push origin --tags`. You can't manage releases though, which
-> require the use of the GitHub web UI. Here's
-> [more info](https://git-scm.com/book/en/v2/Git-Basics-Tagging) on git tagging.
+This
+[developerlife.com article](https://developerlife.com/2021/02/06/publish-kotlin-library-as-gradle-dep/)
+has extensive details on how to publish a library to JitPack with this library as the example.
 
 ## GitHub Packages Registry (deprecated 2021-04-12)
 
